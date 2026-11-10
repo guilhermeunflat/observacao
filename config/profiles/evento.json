@@ -1,0 +1,1 @@
+{"_doc": "Perfil do dia da festa. Recalibrar telas e masters no local (docs/montagem.md).", "screens": "config/screens_evento.json", "cameras": "config/cameras_evento.json", "janelas_borda": false, "render": {"mostrar_fps": false}}

@@ -1,0 +1,15 @@
+{
+  "_doc": "Posições físicas das telas em cm. Origem (0,0,0) = chão, no centro da base da TV 32. x para a direita de quem observa, y para cima, z para a frente (em direção à pessoa). 'yaw' em graus: 0 = de frente para a pessoa, positivo gira a tela para a esquerda. 'janela' = retângulo em pixels no desktop do Windows.",
+  "telas": [
+    {"id": "centro_32", "tipo": "led", "largura_cm": 39.0, "altura_cm": 70.0, "centro_cm": [0, 120, 0], "yaw": 0,
+     "janela": {"x": 0, "y": 0, "w": 1080, "h": 1920}, "rotacao": 90},
+    {"id": "esq_21", "tipo": "monitor", "largura_cm": 47.0, "altura_cm": 27.0, "centro_cm": [-55, 115, 10], "yaw": 35,
+     "janela": {"x": 1080, "y": 0, "w": 1920, "h": 1080}},
+    {"id": "dir_21_touch", "tipo": "monitor", "touch": true, "largura_cm": 47.0, "altura_cm": 27.0, "centro_cm": [55, 110, 10], "yaw": -35,
+     "janela": {"x": 3000, "y": 0, "w": 1920, "h": 1080}},
+    {"id": "tubo_esq", "tipo": "crt", "largura_cm": 36.0, "altura_cm": 27.0, "centro_cm": [-105, 105, 45], "yaw": 70,
+     "janela": {"x": 4920, "y": 0, "w": 960, "h": 540}, "via_videowall": "A"},
+    {"id": "tubo_dir", "tipo": "crt", "largura_cm": 36.0, "altura_cm": 27.0, "centro_cm": [105, 105, 45], "yaw": -70,
+     "janela": {"x": 5880, "y": 0, "w": 960, "h": 540}, "via_videowall": "B"}
+  ]
+}

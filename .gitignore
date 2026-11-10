@@ -1,0 +1,18 @@
+# ambiente Python
+.venv/
+__pycache__/
+*.pyc
+
+# imagens de pessoas: nunca sobem (ficam só no PC da obra)
+bank/
+bank_*/
+docs/fotos/*/
+docs/render_real.png
+
+# gerados
+OBSERVACAO_notebook.zip
+*.bak.json
+_resultado/
+
+# configurações locais do Claude Code
+.claude/

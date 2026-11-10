@@ -1,0 +1,77 @@
+{
+  "captura": {
+    "largura": 640,
+    "altura": 480,
+    "fps": 30,
+    "fourcc": "MJPG",
+    "backend": "dshow"
+  },
+  "tracking": {
+    "segundos_para_entrar": 2.0,
+    "segundos_para_sair": 5.0,
+    "max_pessoas": 3,
+    "distancia_min_cm": 60,
+    "distancia_max_cm": 250,
+    "confianca_min": 0.6,
+    "suavizacao": 0.35,
+    "raio_mesma_pessoa_cm": 45,
+    "filtro_estatico": {
+      "tolerancia_px": 4.0,
+      "tolerancia_largura": 0.12,
+      "segundos": 20.0,
+      "esquecer_s": 60.0
+    }
+  },
+  "analise": {
+    "intervalo_s": 4.0,
+    "idade": true,
+    "emocao": true,
+    "altura": true
+  },
+  "banco": {
+    "_doc": "Sessões: um quadro de cada câmera a cada intervalo_s enquanto a pessoa está na frente. Fica só neste PC; apagar a pasta bank/ limpa tudo.",
+    "pasta": "bank",
+    "intervalo_s": 0.5,
+    "quadros_por_camera": 40,
+    "min_quadros": 15,
+    "qualidade_jpeg": 80
+  },
+  "frases": {
+    "ativas": false,
+    "intervalo_s": 8.0,
+    "pastas": [
+      "config/frases"
+    ]
+  },
+  "touch": {
+    "segundos_volta": 20
+  },
+  "render": {
+    "vsync": true,
+    "mostrar_fps": false
+  },
+  "controladores": {
+    "_doc": "Trecho do instance id PCI -> nome. Limite medido em 05/11: 2 webcams abertas por controlador.",
+    "SUBSYS_50071458": "CPU (azuis de trás)",
+    "SUBSYS_14861022": "chipset A (vermelhas e pretas)",
+    "SUBSYS_148C1022": "chipset B (frente)",
+    "limite_por_controlador": 2
+  },
+  "rodizio": {
+    "vagas": 2,
+    "quadros_descartados": 12,
+    "fotos_por_visita": 3,
+    "intervalo_fotos_s": 0.15
+  },
+  "remotas": {
+    "_doc": "Envio do notebook ao PC. 15 fps e JPEG 70 = ~6 Mb/s por câmera, folgado no Wi-Fi. No cabo direto pode subir para 30.",
+    "porta": 8765,
+    "qualidade_jpeg": 70,
+    "fps_envio": 15
+  },
+  "estado": {
+    "_doc": "Com pessoas_arquivo ou mais na frente, liga o mural; volta ao 3D após saida_arquivo_s com menos.",
+    "pessoas_arquivo": 4,
+    "saida_arquivo_s": 3.0
+  }
+}

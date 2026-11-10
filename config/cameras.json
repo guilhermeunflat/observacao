@@ -1,0 +1,115 @@
+{
+  "_doc": "Preenchido por tools/calibrate_cameras.py. 'rota_usb' vem do DevicePath do DirectShow e identifica a porta física. papel: olho | master | reserva. posicao_cm aproximada só para ordenar os cacos; masters precisam de posição e inclinação reais (calibrate_tracking.py).",
+  "cameras": [
+    {
+      "nome": "M1",
+      "rota_usb": "7&13ac4bd4&0&0000",
+      "papel": "master",
+      "vid": "1224",
+      "pid": "2a25",
+      "posicao_cm": null,
+      "exposicao": null,
+      "ganho": null
+    },
+    {
+      "nome": "M2",
+      "rota_usb": "7&d1a00d9&3&0000",
+      "papel": "master",
+      "vid": "1bcf",
+      "pid": "2281",
+      "posicao_cm": null,
+      "exposicao": null,
+      "ganho": null
+    },
+    {
+      "nome": "V1",
+      "rota_usb": "9&baff3be&2&0000",
+      "papel": "video",
+      "vid": "1bcf",
+      "pid": "2281",
+      "posicao_cm": null,
+      "exposicao": null,
+      "ganho": null
+    },
+    {
+      "nome": "F1",
+      "rota_usb": "a&169b131&0&0000",
+      "papel": "foto",
+      "vid": "4c4a",
+      "pid": "4a55",
+      "posicao_cm": null,
+      "exposicao": null,
+      "ganho": null
+    },
+    {
+      "nome": "F2",
+      "rota_usb": "a&97d75ea&0&0000",
+      "papel": "foto",
+      "vid": "1bcf",
+      "pid": "2281",
+      "posicao_cm": null,
+      "exposicao": null,
+      "ganho": null
+    },
+    {
+      "nome": "F3",
+      "rota_usb": "a&93c3abb&0&0000",
+      "papel": "foto",
+      "vid": "1bcf",
+      "pid": "2281",
+      "posicao_cm": null,
+      "exposicao": null,
+      "ganho": null
+    },
+    {
+      "nome": "F4",
+      "rota_usb": "a&1bf5eb60&0&0000",
+      "papel": "foto",
+      "vid": "1bcf",
+      "pid": "2281",
+      "posicao_cm": null,
+      "exposicao": null,
+      "ganho": null
+    },
+    {
+      "nome": "F5",
+      "rota_usb": "9&d12e9eb&4&0000",
+      "papel": "foto",
+      "vid": "1bcf",
+      "pid": "2281",
+      "posicao_cm": null,
+      "exposicao": null,
+      "ganho": null
+    },
+    {
+      "nome": "F6",
+      "rota_usb": "a&1f56d59c&3&0000",
+      "papel": "foto",
+      "vid": "1bcf",
+      "pid": "2281",
+      "posicao_cm": null,
+      "exposicao": null,
+      "ganho": null
+    },
+    {
+      "nome": "nb_01",
+      "papel": "olho",
+      "remota": "http://192.168.0.68:8765/cam/nb_01"
+    },
+    {
+      "nome": "nb_02",
+      "papel": "olho",
+      "remota": "http://192.168.0.68:8765/cam/nb_02"
+    },
+    {
+      "nome": "nb_03",
+      "papel": "olho",
+      "remota": "http://192.168.0.68:8765/cam/nb_03"
+    },
+    {
+      "nome": "nb_04",
+      "papel": "olho",
+      "remota": "http://192.168.0.68:8765/cam/nb_04"
+    }
+  ]
+}

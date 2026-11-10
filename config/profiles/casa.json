@@ -1,0 +1,1 @@
+{"_doc": "Perfil de teste na casa do usuário. Sobrescreve chaves de app.json/screens.json.", "screens": "config/screens.json", "cameras": "config/cameras.json", "janelas_borda": false}

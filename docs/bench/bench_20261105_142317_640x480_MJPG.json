@@ -1,0 +1,172 @@
+{
+  "res": [
+    640,
+    480
+  ],
+  "fps": 30,
+  "webcams": [
+    {
+      "indice": 0,
+      "nome": "USB Video Device",
+      "device_path": "\\\\?\\usb#vid_1bcf&pid_2281&mi_00#9&1e69a463&2&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\\global",
+      "vid": "1bcf",
+      "pid": "2281",
+      "rota_usb": "9&1e69a463&2&0000",
+      "usb": true
+    },
+    {
+      "indice": 5,
+      "nome": "USB Video Device",
+      "device_path": "\\\\?\\usb#vid_1bcf&pid_2281&mi_00#7&1fd3b17e&1&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\\global",
+      "vid": "1bcf",
+      "pid": "2281",
+      "rota_usb": "7&1fd3b17e&1&0000",
+      "usb": true
+    },
+    {
+      "indice": 6,
+      "nome": "DV20 USB CAMERA",
+      "device_path": "\\\\?\\usb#vid_4c4a&pid_4a55&mi_00#9&b739de6&0&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\\global",
+      "vid": "4c4a",
+      "pid": "4a55",
+      "rota_usb": "9&b739de6&0&0000",
+      "usb": true
+    },
+    {
+      "indice": 7,
+      "nome": "USB Camera",
+      "device_path": "\\\\?\\usb#vid_1bcf&pid_2281&mi_00#9&d12e9eb&4&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\\global",
+      "vid": "1bcf",
+      "pid": "2281",
+      "rota_usb": "9&d12e9eb&4&0000",
+      "usb": true
+    },
+    {
+      "indice": 8,
+      "nome": "USB Camera",
+      "device_path": "\\\\?\\usb#vid_1bcf&pid_2281&mi_00#9&baff3be&2&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\\global",
+      "vid": "1bcf",
+      "pid": "2281",
+      "rota_usb": "9&baff3be&2&0000",
+      "usb": true
+    }
+  ],
+  "etapas": [
+    {
+      "n": 1,
+      "nova": "i00",
+      "rota_usb": "9&1e69a463&2&0000",
+      "fps": {
+        "i00": [
+          30.3,
+          "ok",
+          0
+        ]
+      },
+      "ruins": []
+    },
+    {
+      "n": 2,
+      "nova": "i05",
+      "rota_usb": "7&1fd3b17e&1&0000",
+      "fps": {
+        "i00": [
+          29.8,
+          "ok",
+          0
+        ],
+        "i05": [
+          30.3,
+          "ok",
+          0
+        ]
+      },
+      "ruins": []
+    },
+    {
+      "n": 3,
+      "nova": "i06[4c4a]",
+      "rota_usb": "9&b739de6&0&0000",
+      "fps": {
+        "i00": [
+          30.3,
+          "ok",
+          0
+        ],
+        "i05": [
+          29.8,
+          "ok",
+          0
+        ],
+        "i06[4c4a]": [
+          30.8,
+          "ok",
+          0
+        ]
+      },
+      "ruins": []
+    },
+    {
+      "n": 4,
+      "nova": "i07",
+      "rota_usb": "9&d12e9eb&4&0000",
+      "fps": {
+        "i00": [
+          30.3,
+          "ok",
+          0
+        ],
+        "i05": [
+          29.8,
+          "ok",
+          0
+        ],
+        "i06[4c4a]": [
+          30.3,
+          "ok",
+          0
+        ],
+        "i07": [
+          30.3,
+          "ok",
+          0
+        ]
+      },
+      "ruins": []
+    },
+    {
+      "n": 5,
+      "nova": "i08",
+      "rota_usb": "9&baff3be&2&0000",
+      "fps": {
+        "i00": [
+          30.3,
+          "ok",
+          0
+        ],
+        "i05": [
+          29.8,
+          "ok",
+          0
+        ],
+        "i06[4c4a]": [
+          30.8,
+          "ok",
+          0
+        ],
+        "i07": [
+          30.3,
+          "ok",
+          0
+        ],
+        "i08": [
+          30.0,
+          "ok",
+          0
+        ]
+      },
+      "ruins": []
+    }
+  ],
+  "final": null
+}

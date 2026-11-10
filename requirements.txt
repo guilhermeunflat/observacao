@@ -1,0 +1,10 @@
+opencv-python>=4.10
+numpy>=1.26
+pygrabber>=0.2
+mediapipe>=0.10
+pyglet>=2.0
+pillow>=10
+insightface>=0.7
+onnxruntime-gpu>=1.17
+fer>=22.5
+websockets>=12

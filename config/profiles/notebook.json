@@ -1,0 +1,1 @@
+{"_doc": "Perfil do notebook servidor de câmeras. Câmeras dele em config/cameras_notebook.json (cadastre com tools/calibrate_cameras.py --perfil notebook).", "screens": "config/screens.json", "cameras": "config/cameras_notebook.json"}

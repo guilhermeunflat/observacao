@@ -1,0 +1,1 @@
+{"_doc": "Perfil para o amigo testar com 1-2 monitores e poucas câmeras.", "screens": "config/screens_amigo.json", "cameras": "config/cameras_amigo.json", "janelas_borda": true, "captura": {"fps": 15}, "tracking": {"max_pessoas": 2}}

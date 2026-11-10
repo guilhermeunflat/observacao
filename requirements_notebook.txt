@@ -1,0 +1,5 @@
+# Só o necessário para o notebook servir câmeras (sem render, sem modelos).
+opencv-python
+numpy
+pygrabber
+comtypes

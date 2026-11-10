@@ -1,0 +1,95 @@
+{
+  "res": [
+    640,
+    480
+  ],
+  "fps": 30,
+  "webcams": [
+    {
+      "indice": 4,
+      "nome": "USB Camera",
+      "device_path": "\\\\?\\usb#vid_1bcf&pid_2281&mi_00#7&328d6223&1&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\\global",
+      "vid": "1bcf",
+      "pid": "2281",
+      "rota_usb": "7&328d6223&1&0000",
+      "usb": true
+    },
+    {
+      "indice": 5,
+      "nome": "USB Camera",
+      "device_path": "\\\\?\\usb#vid_1bcf&pid_2281&mi_00#8&38182be1&0&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\\global",
+      "vid": "1bcf",
+      "pid": "2281",
+      "rota_usb": "8&38182be1&0&0000",
+      "usb": true
+    },
+    {
+      "indice": 7,
+      "nome": "USB Video Device",
+      "device_path": "\\\\?\\usb#vid_1bcf&pid_2281&mi_00#7&1fd3b17e&1&0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\\global",
+      "vid": "1bcf",
+      "pid": "2281",
+      "rota_usb": "7&1fd3b17e&1&0000",
+      "usb": true
+    }
+  ],
+  "etapas": [
+    {
+      "n": 1,
+      "nova": "i04",
+      "rota_usb": "7&328d6223&1&0000",
+      "fps": {
+        "i04": [
+          29.8,
+          "ok",
+          0
+        ]
+      },
+      "ruins": []
+    },
+    {
+      "n": 2,
+      "nova": "i05",
+      "rota_usb": "8&38182be1&0&0000",
+      "fps": {
+        "i04": [
+          29.8,
+          "ok",
+          0
+        ],
+        "i05": [
+          18.5,
+          "ok",
+          0
+        ]
+      },
+      "ruins": []
+    },
+    {
+      "n": 3,
+      "nova": "i07",
+      "rota_usb": "7&1fd3b17e&1&0000",
+      "fps": {
+        "i04": [
+          29.8,
+          "ok",
+          0
+        ],
+        "i05": [
+          16.6,
+          "ok",
+          0
+        ],
+        "i07": [
+          0.0,
+          "falha ao abrir",
+          0
+        ]
+      },
+      "ruins": [
+        "i07"
+      ]
+    }
+  ],
+  "final": null
+}
