@@ -189,7 +189,7 @@ Depois do teste, manda:
 | Quem | O quê |
 |---|---|
 | **Phe** | câmeras, USB, cadastro M3/M4, medidas, calibração, tracking, luz, montagem. Pode mexer em `capture.py`, `tracker.py`, `tools/*`, `config/*`, `ilha.py`, `estado_ilha.py` |
-| **Gui + Claude** | **UI da tela principal (32")**: rosto do dono em destaque, ficha de palpites, contador, alerta de 5 min com falha visual, mural. Vai entrar num módulo novo (`render/painel.py`). Para evitar conflito, **não mexa em `render/archive.py` nem no trecho da 32" em `render/app.py`** (`lado == "frente"` no `on_draw`) |
+| **Gui + Claude** | **UI da tela principal (32")**: rosto do dono em destaque, ficha de palpites, contador, alerta de 5 min com falha visual, mural. Vai entrar num módulo novo (`render/painel.py`). Para evitar conflito, **não mexa em `render/archive.py`, `analise.py` nem no trecho da 32" em `render/app.py`** (`lado == "frente"` no `on_draw` e `_desenhar_fichas`) |
 | a decidir | filtro 80/20 das fotos; cor das TVs de tubo por software; frases |
 
 ---
