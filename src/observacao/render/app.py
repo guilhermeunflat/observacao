@@ -34,6 +34,7 @@ import pyglet
 from pyglet import gl
 
 from .. import config, ilha as ilha_mod, phrases
+from ..analise import Analisador, ficha
 from ..bank import Banco
 from ..capture import Captura
 from ..estado_ilha import EstadoIlha
@@ -152,6 +153,8 @@ class App:
         self.tracker = Tracker(self.cfg, masters).iniciar() if masters and not a.fake else None
         self.banco = Banco(self.cfg, self.cams, pasta=(config.RAIZ / "bank_teste") if a.fake else None).iniciar()
         self.estado = EstadoIlha(self.cfg, self.banco, self.ilha)
+        self.analise = Analisador(self.cfg, self.tracker, self.cams).iniciar()   # palpites (só em memória)
+        self._img_rosto = {}                                                      # pid -> (array, ImageData)
         self.falsas = PessoasFalsas(self.ilha)
         if a.pessoas:
             self.falsas.definir(a.pessoas)
@@ -383,6 +386,7 @@ class App:
     def tick(self, dt):
         est = self.estado.atualizar(self.pessoas())
         self.quadro_estado = est
+        self.analise.definir_alvos([i["dono"] for i in est["lados"].values() if i["dono"]])
         t = time.time() - self.t0
         ativos = []
         for lado, L in self.lados.items():
@@ -471,6 +475,8 @@ class App:
             L = self.letreiros[tid]
             L.talvez_trocar(agora, self._escolher(tid, estilo, pessoa), estilo)
             L.desenhar(int(x * k), int(y * k), int(w * k), int(h * k), agora)
+        if not self.marcadores:
+            self._desenhar_fichas(k)
         if self.mostrar_mapa:
             self._desenhar_mapa(k)
         if self.mostrar_texto:
@@ -488,6 +494,56 @@ class App:
                 c = self.img_marcadores[t["id"]] = ((W, H), pyglet.image.ImageData(W, H, "BGR", img.tobytes(),
                                                                                      pitch=W * 3))
             c[1].blit(int(x * k), int(y * k))
+
+    # ---------- ficha provisória na 32" (a UI definitiva substitui isto)
+    def _desenhar_fichas(self, k):
+        painel = next((t for t in self.telas if t["lado"] == "frente"), None)
+        if painel is None or painel["id"] not in self.rects:
+            return
+        est = self.quadro_estado
+        donos = [(lado, est["lados"][lado]) for lado in ("esq", "dir") if est["lados"][lado]["dono"]]
+        if not donos:
+            return
+        x, y, w, h = (v * k for v in self.rects[painel["id"]])
+        alt = h / len(donos)
+        for i, (lado, info) in enumerate(donos):
+            d = info["dono"]
+            p = self.analise.palpite(d["id"])
+            y1 = y + h - i * alt                       # topo deste bloco
+            fundo = self.bordas.get(f"_ficha{i}")
+            if fundo is None:
+                fundo = self.bordas[f"_ficha{i}"] = pyglet.shapes.Rectangle(0, 0, 1, 1, color=(0, 0, 0, 205))
+            fundo.x, fundo.y, fundo.width, fundo.height = x + w * 0.04, y1 - alt + 6, w * 0.92, alt - 12
+            fundo.draw()
+            tam = max(9, int(w / 26))
+            ty = y1 - tam * 2.2
+            self._rotulo(f"_ficha_t{i}", f"LADO {'ESQUERDO' if lado == 'esq' else 'DIREITO'} · PESSOA {d['id']}",
+                         x + w * 0.08, ty, tam, (255, 90, 80, 255), negrito=True)
+            rosto = p.get("rosto") if p else None
+            ry = ty - tam
+            if rosto is not None:
+                c = self._img_rosto.get(d["id"])
+                if c is None or c[0] is not rosto:
+                    img = np.ascontiguousarray(np.flipud(rosto))
+                    c = self._img_rosto[d["id"]] = (rosto, pyglet.image.ImageData(img.shape[1], img.shape[0], "BGR",
+                                                                                   img.tobytes(), pitch=img.shape[1] * 3))
+                esc = min(w * 0.45 / c[1].width, alt * 0.36 / c[1].height)   # cabe no bloco, sem distorcer
+                lado_px = c[1].width * esc
+                c[1].blit(x + w * 0.08, ry - c[1].height * esc, width=lado_px, height=c[1].height * esc)
+                ry -= c[1].height * esc + tam
+            else:
+                ry -= tam * 0.5
+            for j, linha in enumerate(ficha(p, info["segundos"])):
+                ly = ry - j * tam * 1.6
+                self._rotulo(f"_ficha{i}_{j}", linha, x + w * 0.08, ly, tam, (235, 235, 235, 255))
+                if linha.startswith("roupa:") and p and p.get("roupa_bgr"):   # amostra da cor lida no peito
+                    b_, g_, r_ = p["roupa_bgr"]
+                    q = self.bordas.get(f"_amostra{i}")
+                    if q is None:
+                        q = self.bordas[f"_amostra{i}"] = pyglet.shapes.Rectangle(0, 0, 1, 1, color=(0, 0, 0, 255))
+                    q.x, q.y, q.width, q.height = x + w * 0.08 + tam * 9.5, ly - tam * 0.15, tam * 1.2, tam * 1.2
+                    q.color = (int(r_), int(g_), int(b_), 255)
+                    q.draw()
 
     def _desenhar_mapa(self, k):
         agora = time.time()
@@ -564,8 +620,10 @@ class App:
             else:
                 self._rotulo(t["id"], titulo, x * k, (y + h) * k + 10, 12, (220, 220, 220, 255), negrito=True)
                 self._rotulo(t["id"] + "_s", self._status_tela(t), x * k, y * k - 20, 11)
+        erro = f"   ERRO análise: {self.analise.erro[:60]}" if self.analise.erro else ""
         self.hud.text = (f"fonte: {self.fonte_pessoas}   {len(est['pessoas'])} pessoas   banco {len(self.banco.todas())} "
-                         f"sessões   câmeras {vivas}/{len(self.cams)}   {self.fps:3.0f} fps")
+                         f"sessões   câmeras {vivas}/{len(self.cams)}   {self.fps:3.0f} fps   "
+                         f"análise {self.analise.hz:.1f}/s{erro}")
         self.hud.y = 30
         self.hud.draw()
         self.ajuda.text = ("mapa: clique põe pessoa · arraste move · botão direito tira · roda = altura      "
@@ -583,6 +641,7 @@ class App:
         pyglet.clock.unschedule(self.tick)
         if self.tracker:
             self.tracker.parar()
+        self.analise.parar()
         self.banco.parar()
         self.captura.parar()
         self.win.close()

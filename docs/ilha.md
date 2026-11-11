@@ -71,11 +71,30 @@ Teste sem câmeras: `--fake 8 --pessoas 4` (pessoas simuladas entrando e saindo 
 | `tools/configurar_ilha.py` | perguntas das medidas, avisos, mapa |
 | `tools/calibrate_tracking.py` | agora com `--lado esq/dir` para a ilha |
 
+## Palpites sobre as pessoas (v2, 11/11)
+
+A 32" mostra uma ficha de cada dono: o rosto recortado e o que o sistema "acha" da pessoa. É palpite, e aparece assim.
+
+| Palpite | De onde vem | Qualidade |
+|---|---|---|
+| idade aparente | modelo `models/genderage_insightface.onnx` (InsightFace `buffalo_s`, 2021; só a saída de idade é usada, a de gênero é ignorada de propósito): número contínuo de anos | razoável; calibrado em 2 fotos de domínio público: Grace Hopper (~78 anos) → 78, Eileen Collins (~42) → 46 (um modelo de 2015 testado antes dava 63 e 29, e foi descartado) |
+| humor | modelo `models/emotion-ferplus-8.onnx` (onnx/models, FER+): neutro, feliz, surpreso, triste, bravo, nojo, medo, desdém | boa com o rosto de frente e luz (feliz 100% e neutro 84–92% nos testes) |
+| altura | sem modelo: altura dos olhos no tracking + 11 cm | depende da calibração |
+| peso | sem modelo confiável possível: IMC chutado pela proporção do rosto × altura² | inventado de propósito |
+| roupa | cor dominante no peito, logo abaixo do queixo; a ficha mostra uma amostra da cor lida | boa (preta e laranja corretas nos testes) |
+
+- **Como roda:** `src/observacao/analise.py` roda numa thread. A cada 4 s (`analise.intervalo_s` em `app.json`) analisa o melhor recorte de rosto de cada dono. O tracking agora guarda esse recorte (`Tracker.rosto(pid)`: o maior rosto entre as câmeras que veem a pessoa).
+- **Média ao longo do tempo:** idade, humor e peso fazem média entre as análises, para não pular a cada 4 s.
+- **Privacidade:** nada vai para o disco. Os palpites ficam só na memória e somem 60 s depois de a pessoa sair. Não há reconhecimento nem identificação. A placa da entrada precisa dizer que esses palpites existem.
+- **No simulador**, sem câmeras de tracking, os rostos vêm das câmeras: o 1º dono pega o maior rosto, o 2º o segundo maior. Com a webcam do Mac, é você.
+- **Licença:** os modelos do InsightFace são para uso não comercial (serve para a festa). Do pacote `buffalo_s` só entrou o modelo de idade; o de reconhecimento facial **não** entrou, nem pode entrar na obra.
+- **Desligar um palpite:** `false` em `app.json` → `analise` (`idade`, `emocao`, `altura`, `peso`, `roupa`).
+- **A ficha atual na 32" é provisória.** A UI da tela principal vai substituí-la, usando `Analisador.palpite(pid)` e `analise.ficha()`.
+
 ## Ainda não feito (camada de conteúdo, decisões da reunião de 10/11)
 
-- recorte do rosto do dono fixo em destaque (na 32");
+- UI definitiva da 32" (hoje há uma ficha provisória com o rosto do dono e os palpites);
 - aviso de consumo excessivo + falha visual sincronizada em todas as telas (o estado já sinaliza `alerta`);
 - filtro 80/20: só fotos com gente no mural e nas cenas;
-- palpites de idade, altura, humor e peso;
 - ajuste de cor por tela para as TVs de tubo;
 - frases (desligadas em `app.json`) e texto espacial.

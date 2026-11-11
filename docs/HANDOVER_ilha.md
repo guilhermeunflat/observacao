@@ -8,6 +8,20 @@ Enquanto isso, o Gui e o Claude dele começam a **UI da tela principal (a 32")**
 
 ---
 
+## 0. Novidade da v2 (11/11): palpites sobre as pessoas
+
+A 32" mostra uma **ficha de cada dono**: o rosto recortado e os palpites do sistema. São idade aparente (InsightFace, `models/genderage_insightface.onnx`; só a idade, gênero ignorado) e humor (FER+, `models/emotion-ferplus-8.onnx`), altura (do tracking), peso (inventado de propósito) e cor da roupa. Detalhes, fontes dos modelos e a qualidade de cada palpite estão em [`docs/ilha.md`](ilha.md#palpites-sobre-as-pessoas-v2-1111).
+
+- **Código novo:** `src/observacao/analise.py`.
+- **Mudança no tracker:** pequena, em `tracker.py`, só aditiva. Cada pessoa guarda o melhor recorte de rosto (`Tracker.rosto(pid)`).
+- **Dependências:** nenhuma nova, só OpenCV.
+- **Privacidade:** os palpites ficam só na memória e somem 60 s depois de a pessoa sair.
+- **No teste com câmeras, conferir:**
+  - a ficha aparece quando alguém vira dono;
+  - o rosto recortado é o da pessoa certa;
+  - a análise anda (`análise N/s` no rodapé do preview);
+  - o desempenho continua bom com as 4 câmeras de tracking.
+
 ## 1. O que mudou desde o repo de 10/11
 
 **Layout (decidido entre 10 e 11/11).** O U foi trocado por uma ilha:
@@ -176,7 +190,7 @@ Depois do teste, manda:
 |---|---|
 | **Phe** | câmeras, USB, cadastro M3/M4, medidas, calibração, tracking, luz, montagem. Pode mexer em `capture.py`, `tracker.py`, `tools/*`, `config/*`, `ilha.py`, `estado_ilha.py` |
 | **Gui + Claude** | **UI da tela principal (32")**: rosto do dono em destaque, ficha de palpites, contador, alerta de 5 min com falha visual, mural. Vai entrar num módulo novo (`render/painel.py`). Para evitar conflito, **não mexa em `render/archive.py` nem no trecho da 32" em `render/app.py`** (`lado == "frente"` no `on_draw`) |
-| a decidir | filtro 80/20 das fotos; palpites (idade/altura/humor/peso); cor das TVs de tubo por software; frases |
+| a decidir | filtro 80/20 das fotos; cor das TVs de tubo por software; frases |
 
 ---
 
@@ -197,5 +211,5 @@ Depois do teste, manda:
 
 | | Arquivo |
 |---|---|
-| novo | `src/observacao/ilha.py`, `src/observacao/estado_ilha.py`, `tools/configurar_ilha.py`, `tools/maquete_ilha_blender.py`, `config/ilha.json`, `config/profiles/ilha.json`, `docs/ilha.md`, `docs/HANDOVER_ilha.md`, `docs/maquete/*`, `src/observacao/render/app_u.py` (cópia do app antigo) |
-| alterado | `src/observacao/render/app.py` (render da ilha + simulador), `src/observacao/config.py` (perfil com `"ilha"`), `tools/calibrate_tracking.py` (`--lado`, padrão perfil `ilha`), `src/observacao/phrases.py` (distância), `config/profiles/evento.json` (ilha), `README.md`, `.gitignore` |
+| novo | `src/observacao/analise.py` e `models/genderage_insightface.onnx`, `models/emotion-ferplus-8.onnx` (v2), `src/observacao/ilha.py`, `src/observacao/estado_ilha.py`, `tools/configurar_ilha.py`, `tools/maquete_ilha_blender.py`, `config/ilha.json`, `config/profiles/ilha.json`, `docs/ilha.md`, `docs/HANDOVER_ilha.md`, `docs/maquete/*`, `src/observacao/render/app_u.py` (cópia do app antigo) |
+| alterado | `src/observacao/tracker.py` (v2: guarda o recorte do rosto), `config/app.json` (v2: seção `analise`), `src/observacao/render/app.py` (render da ilha + simulador + ficha provisória), `src/observacao/config.py` (perfil com `"ilha"`), `tools/calibrate_tracking.py` (`--lado`, padrão perfil `ilha`), `src/observacao/phrases.py` (distância), `config/profiles/evento.json` (ilha), `README.md`, `.gitignore` |
